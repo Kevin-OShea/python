@@ -3,8 +3,7 @@ import random
 import subprocess
 
 
-# board = ['A','A','A','A','A','A','A','A','A']
-board = ['X','X','X','A','A','A','A','A','A']
+board = ['A','A','A','A','A','A','A','A','A']
 
 class play:
 
@@ -17,33 +16,57 @@ class play:
     def read_in_and_write():
         current_player = 'X'
         array = [-1,-1]
-        input_data = input("Please enter location of desired placement in the following format: (X,0): ")
-        for i in input_data:
-            if( i.isnumeric()):
-                array[1] = i
-            elif(i == 'X' or i == 'O'):
-                array[0] = i
-        board[int(array[1])] = array[0]
-        play.print_board_data()
+        valid = False
+        while(valid == False):
+            input_data = input("Please enter location of desired placement in the following format: (X,0): ")
+            if( input_data[3].isnumeric()):
+                array[1] = input_data[3]
+            else:
+                print('Please place piece into a valid space')
+                continue
+
+            if(input_data[1] == current_player):
+                array[0] = input_data[1]
+                if(current_player == 'X'):
+                    current_player = 'O'
+                else:
+                    current_player = 'X'
+                board[int(array[1])] = array[0]
+                play.print_board_data()
+                if(play.check_win()):
+                    break
+                else:
+                    continue
+            else:
+                print('Please place the correct piece')
+                continue
 
     def check_win():
-        if(board[4] == board[0] and board[4] == board[8]): # diag top left to right
+        if(board[4] != 'A' and board[4] == board[0] and board[4] == board[8]): # diag top left to right
             print(board[4] + ' WINS!')
-        elif(board[4] == board[6] and board[4] == board[2]): # diag bot left to right
+            return True
+        elif(board[4] != 'A' and board[4] == board[6] and board[4] == board[2]): # diag bot left to right
             print(board[4] + ' WINS!')
-        elif(board[0] == board[1] and board[0] == board[2]): # top left to right
+            return True
+        elif(board[0] != 'A' and board[0] == board[1] and board[0] == board[2]): # top left to right
             print(board[0] + ' WINS!')
-        elif(board[3] == board[4] and board[5] == board[2]): # middle left to right
+            return True
+        elif(board[3] != 'A' and board[3] == board[4] and board[5] == board[2]): # middle left to right
             print(board[3] + ' WINS!')
-        elif(board[6] == board[7] and board[6] == board[8]): # bot left to right
+            return True
+        elif(board[6] != 'A' and board[6] == board[7] and board[6] == board[8]): # bot left to right
             print(board[6] + ' WINS!')
-        elif(board[0] == board[3] and board[0] == board[6]): # top left down
+            return True
+        elif(board[0] != 'A' and board[0] == board[3] and board[0] == board[6]): # top left down
             print(board[0] + ' WINS!')
-        elif(board[1] == board[4] and board[1] == board[7]): # middle down
+            return True
+        elif(board[1] != 'A' and board[1] == board[4] and board[1] == board[7]): # middle down
             print(board[1] + ' WINS!')
-        elif(board[2] == board[5] and board[8] == board[2]): # right down
+            return True
+        elif(board[2] != 'A' and board[2] == board[5] and board[8] == board[2]): # right down
             print(board[2] + ' WINS!')
+            return True
 
 
 # print_board_data()
-play.check_win()
+play.read_in_and_write()
