@@ -4,7 +4,6 @@ import subprocess
 
 
 board = ['A','A','A','A','A','A','A','A','A']
-count = 0
 class play:
 
     def print_board_data():
@@ -30,7 +29,6 @@ class play:
 
             if(input_data[1] == current_player):
                 array[0] = input_data[1]
-                count = count + 1
                 if(current_player == 'X'):
                     current_player = 'O'
                 else:
