@@ -1,7 +1,7 @@
 import math
 import random
 import subprocess
-import sys
+
 
 board = ['A','A','A','A','A','A','A','A','A']
 
@@ -21,8 +21,16 @@ class play:
                 print('')
 
     def read_in():
-        a = input("Please enter location of desired placement in the following format: (0,0): ")
-        print(a)
+        array = [-1,-1]
+        input_data = input("Please enter location of desired placement in the following format: (X,0): ")
+        for i in input_data:
+            if( i.isnumeric()):
+                array[1] = i
+            elif(i == 'X' or i == 'O'):
+                array[0] = i
+        board[int(array[1])] = array[0]
+        print(board)
+
 
 
 # print_board_data()
