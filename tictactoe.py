@@ -4,7 +4,7 @@ import subprocess
 
 
 board = ['A','A','A','A','A','A','A','A','A']
-
+count = 0
 class play:
 
     def print_board_data():
@@ -19,7 +19,10 @@ class play:
         valid = False
         while(valid == False):
             input_data = input("Please enter location of desired placement in the following format: (X,0): ")
-            if( input_data[3].isnumeric()):
+            if(len(input_data) != 5):
+                print('Please input in correct format')
+                continue
+            if(input_data[3].isnumeric() and board[int(input_data[3])] == 'A' and int(input_data[3]) > -1 and int(input_data[3]) < 9):
                 array[1] = input_data[3]
             else:
                 print('Please place piece into a valid space')
@@ -27,6 +30,7 @@ class play:
 
             if(input_data[1] == current_player):
                 array[0] = input_data[1]
+                count = count + 1
                 if(current_player == 'X'):
                     current_player = 'O'
                 else:
@@ -66,6 +70,10 @@ class play:
         elif(board[2] != 'A' and board[2] == board[5] and board[8] == board[2]): # right down
             print(board[2] + ' WINS!')
             return True
+        elif(count == 9):
+            print('TIE!')
+            return True
+
 
 
 # print_board_data()
